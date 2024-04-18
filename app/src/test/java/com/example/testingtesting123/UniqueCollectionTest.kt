@@ -1,5 +1,6 @@
 package com.example.testingtesting123
 
+import android.util.Log
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -40,5 +41,30 @@ class UniqueCollectionTest {
         val newSize = collection.size();
 
         assert(originalSize == 2 && newSize == 0) {"Items not cleared"}
+    }
+
+    @Test
+    fun removeAnItem() {
+        collection.addItem(Item("item1"))
+        collection.addItem(Item("item2"))
+        collection.remove(collection.get(0))
+
+        assert(collection.size()==1 && collection.get(0).name!="item1")
+    }
+
+    @Test
+    fun removeAnItemNotInList(){
+        collection.addItem(Item("item1"))
+        collection.addItem(Item("item2"))
+        try { collection.remove(collection.get(5)) }
+        catch (e : IndexOutOfBoundsException){ println(e.toString()) }
+        assert(collection.size()==2)
+    }
+
+    @Test
+    fun getAnItem(){
+        val item = Item("COOLSTUFF")
+        collection.addItem(item)
+        assert(collection.get(0) == item)
     }
 }
